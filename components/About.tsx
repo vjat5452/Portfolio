@@ -1,4 +1,16 @@
+"use client";
+
 import FadeIn from "./FadeIn";
+import { FileText, Download, ExternalLink } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const stats = [
   { value: "700+", label: "DSA problems solved" },
@@ -6,6 +18,8 @@ const stats = [
   { value: "Top 5", label: "HackByte finalists" },
   { value: "3+", label: "Years building" },
 ];
+
+const RESUME_URL = "/Resume.pdf";
 
 export default function About() {
   return (
@@ -37,6 +51,63 @@ export default function About() {
                 AI Experience Centre kiosk and a brand-wide chatbot at{" "}
                 <span className="text-white">Sparrow Interactive</span>.
               </p>
+            </div>
+
+            <div className="mt-8">
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button>
+                    <FileText className="w-4 h-4" />
+                    View Resume
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-5xl">
+                  <DialogHeader className="flex flex-row items-center justify-between gap-4 pr-12">
+                    <div>
+                      <DialogTitle>Vijay Saharan — Resume</DialogTitle>
+                      <DialogDescription>
+                        PDF preview · scroll to read, or open in a new tab
+                      </DialogDescription>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Button asChild variant="outline" size="sm">
+                        <a
+                          href={RESUME_URL}
+                          target="_blank"
+                          rel="noreferrer"
+                          aria-label="Open resume in new tab"
+                        >
+                          <ExternalLink className="w-3.5 h-3.5" />
+                          Open
+                        </a>
+                      </Button>
+                      <Button asChild size="sm">
+                        <a
+                          href={RESUME_URL}
+                          download="Vijay-Saharan-Resume.pdf"
+                          aria-label="Download resume"
+                        >
+                          <Download className="w-3.5 h-3.5" />
+                          Download
+                        </a>
+                      </Button>
+                    </div>
+                  </DialogHeader>
+                  <div className="h-[78vh] w-full overflow-hidden rounded-b-2xl bg-[#1a1a1a]">
+                    <object
+                      data={`${RESUME_URL}#view=FitH&toolbar=0`}
+                      type="application/pdf"
+                      className="h-full w-full"
+                    >
+                      <iframe
+                        src={`${RESUME_URL}#view=FitH&toolbar=0`}
+                        title="Resume PDF"
+                        className="h-full w-full border-0"
+                      />
+                    </object>
+                  </div>
+                </DialogContent>
+              </Dialog>
             </div>
           </FadeIn>
           <FadeIn delay={0.1} className="md:col-span-2 grid grid-cols-2 gap-4">

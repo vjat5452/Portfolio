@@ -1,5 +1,7 @@
 import FadeIn from "./FadeIn";
 import { Github, Linkedin, Mail, Phone } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 
 const links = [
   {
@@ -35,13 +37,24 @@ export default function Contact() {
         </FadeIn>
 
         <FadeIn delay={0.1}>
-          <a
-            href="mailto:vijaykumarsaharan22@gmail.com"
-            className="inline-flex items-center gap-2 mt-10 rounded-full bg-white text-bg px-6 py-3 text-sm font-medium hover:bg-accent hover:text-white transition-colors"
-          >
-            <Mail className="w-4 h-4" />
-            Send me an email
-          </a>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+            <Button asChild size="lg">
+              <a href="mailto:vijaykumarsaharan22@gmail.com">
+                <Mail className="w-4 h-4" />
+                Send me an email
+              </a>
+            </Button>
+            <Button asChild variant="outline" size="lg">
+              <a
+                href="https://www.linkedin.com/in/vijay-saharan-16015a264"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Linkedin className="w-4 h-4" />
+                Connect on LinkedIn
+              </a>
+            </Button>
+          </div>
         </FadeIn>
 
         <FadeIn delay={0.2}>
@@ -52,10 +65,14 @@ export default function Contact() {
                   href={l.href}
                   target={l.href.startsWith("http") ? "_blank" : undefined}
                   rel="noreferrer"
-                  className="card rounded-xl px-4 py-3 flex items-center gap-3 text-sm hover:border-accent hover:text-accent transition-colors"
+                  className="block group"
                 >
-                  <l.icon className="w-4 h-4 text-accent" />
-                  <span className="truncate">{l.label}</span>
+                  <Card className="px-4 py-3 flex items-center gap-3 text-sm group-hover:border-accent transition-colors">
+                    <l.icon className="w-4 h-4 text-accent" />
+                    <span className="truncate group-hover:text-accent transition-colors">
+                      {l.label}
+                    </span>
+                  </Card>
                 </a>
               </li>
             ))}

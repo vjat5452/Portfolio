@@ -1,8 +1,15 @@
 "use client";
 
 import FadeIn from "./FadeIn";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Star } from "lucide-react";
 import { motion } from "framer-motion";
+import { SpotlightCard } from "@/components/ui/spotlight-card";
+import { Badge } from "@/components/ui/badge";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 
 const projects = [
   {
@@ -12,6 +19,7 @@ const projects = [
     description:
       "20+ page corporate site on Next.js 16 + React 19, with GSAP, Framer Motion, R3F, Lenis smooth-scroll, custom responsive grid, lazy-loaded media, and a Nodemailer-backed contact pipeline.",
     stack: ["Next.js 16", "React 19", "GSAP", "Three.js", "Tailwind"],
+    highlights: ["20+ pages", "R3F scenes", "98 Lighthouse"],
     featured: true,
   },
   {
@@ -21,6 +29,7 @@ const projects = [
     description:
       "Kiosk platform with face recognition (InsightFace + SQLite vector search), tool-calling LLM brain (Ollama qwen2.5:14b), real-time emotion/pose analytics, and auto-generated visit reports. 6 microservices over FastAPI + Next.js 14.",
     stack: ["FastAPI", "Ollama", "MediaPipe", "DeepFace", "WebSockets"],
+    highlights: ["6 microservices", "Edge inference", "Realtime WS"],
     featured: true,
   },
   {
@@ -30,6 +39,7 @@ const projects = [
     description:
       "Full RAG pipeline — Claude API, Qdrant vectors, semantic chunking, reranker, PDF parsing, live web-scrape ingestion, lead capture, session mgmt, SQL analytics, and a React control plane.",
     stack: ["Python", "Claude API", "Qdrant", "React", "SQL"],
+    highlights: ["Semantic rerank", "PDF + web ingest", "Lead capture"],
   },
   {
     title: "RealDocs",
@@ -38,6 +48,7 @@ const projects = [
     description:
       "A Google Docs clone — Next.js + TypeScript + Lexical Editor + Liveblocks for live multi-cursor collaboration, with ShadCN UI polish.",
     stack: ["Next.js", "TypeScript", "Lexical", "Liveblocks"],
+    highlights: ["Live cursors", "Lexical editor", "Auth + share"],
   },
   {
     title: "Hostel Hub Base",
@@ -46,6 +57,7 @@ const projects = [
     description:
       "Hostel management microservice with 4 roles and 85% active-user rate. One-click + manual allocation flows for admins and caretakers.",
     stack: ["MongoDB", "Express", "React", "Node.js"],
+    highlights: ["4 RBAC roles", "85% active users", "One-click alloc"],
   },
   {
     title: "Org Hierarchy System",
@@ -54,6 +66,7 @@ const projects = [
     description:
       "Non-blocking Node.js/Express API with optimised CRUD (-50% response time). Recursive React tree with instant expand/collapse and a 10+ rule client-side validator.",
     stack: ["MERN", "React", "Express", "MongoDB"],
+    highlights: ["-50% latency", "Recursive tree", "10+ validators"],
   },
 ];
 
@@ -77,36 +90,72 @@ export default function Projects() {
               delay={i * 0.06}
               className={p.featured ? "md:col-span-2" : ""}
             >
-              <motion.article
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                className="card rounded-2xl p-6 sm:p-8 h-full flex flex-col"
-              >
-                <div className="flex items-start justify-between gap-4 mb-3">
-                  <div>
-                    <p className="text-xs uppercase tracking-widest text-accent mb-2">
-                      {p.tag} · {p.year}
+              <HoverCard openDelay={200} closeDelay={100}>
+                <HoverCardTrigger asChild>
+                  <motion.div
+                    whileHover={{ y: -4 }}
+                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    <SpotlightCard className="p-6 sm:p-8 h-full flex flex-col">
+                      <div className="flex items-start justify-between gap-4 mb-3">
+                        <div>
+                          <div className="flex items-center gap-2 mb-2">
+                            <p className="text-xs uppercase tracking-widest text-accent">
+                              {p.tag} · {p.year}
+                            </p>
+                            {p.featured && (
+                              <Badge variant="accent" size="sm" className="gap-1">
+                                <Star className="w-3 h-3" />
+                                Featured
+                              </Badge>
+                            )}
+                          </div>
+                          <h3 className="font-display text-xl sm:text-2xl font-medium">
+                            {p.title}
+                          </h3>
+                        </div>
+                        <ArrowUpRight className="w-5 h-5 text-muted shrink-0 transition-all duration-300 group-hover:text-accent group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                      </div>
+                      <p className="text-muted leading-relaxed flex-1">
+                        {p.description}
+                      </p>
+                      <div className="mt-5 flex flex-wrap gap-2">
+                        {p.stack.map((s) => (
+                          <Badge key={s} variant="outline" size="sm">
+                            {s}
+                          </Badge>
+                        ))}
+                      </div>
+                    </SpotlightCard>
+                  </motion.div>
+                </HoverCardTrigger>
+                <HoverCardContent align="start" className="w-80">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <p className="font-display text-sm font-medium text-white">
+                        {p.title}
+                      </p>
+                      <Badge variant="accent" size="sm">
+                        {p.year}
+                      </Badge>
+                    </div>
+                    <p className="text-xs text-muted leading-relaxed">
+                      Quick stats
                     </p>
-                    <h3 className="font-display text-xl sm:text-2xl font-medium">
-                      {p.title}
-                    </h3>
+                    <ul className="space-y-1.5">
+                      {p.highlights.map((h) => (
+                        <li
+                          key={h}
+                          className="flex items-center gap-2 text-xs text-white/90"
+                        >
+                          <span className="h-1 w-1 rounded-full bg-accent" />
+                          {h}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <ArrowUpRight className="w-5 h-5 text-muted group-hover:text-white transition-colors shrink-0" />
-                </div>
-                <p className="text-muted leading-relaxed flex-1">
-                  {p.description}
-                </p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {p.stack.map((s) => (
-                    <span
-                      key={s}
-                      className="text-xs text-muted border border-border rounded-full px-2.5 py-1"
-                    >
-                      {s}
-                    </span>
-                  ))}
-                </div>
-              </motion.article>
+                </HoverCardContent>
+              </HoverCard>
             </FadeIn>
           ))}
         </div>

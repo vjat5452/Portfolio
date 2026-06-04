@@ -1,7 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowDown, Github, Linkedin, Mail, Sparkles } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 const word = {
   hidden: { y: "110%" },
@@ -14,20 +17,35 @@ const word = {
 const titleLine1 = ["Full-Stack", "&", "AI"];
 const titleLine2 = ["Engineer."];
 
+const socials = [
+  { href: "https://github.com/vjat5452", label: "GitHub", Icon: Github },
+  {
+    href: "https://www.linkedin.com/in/vijay-saharan-16015a264",
+    label: "LinkedIn",
+    Icon: Linkedin,
+  },
+  { href: "mailto:vijaykumarsaharan22@gmail.com", label: "Email", Icon: Mail },
+];
+
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col justify-center px-6 pt-28 pb-20 overflow-hidden">
       <div className="absolute inset-0 glow pointer-events-none" />
       <div className="mx-auto w-full max-w-6xl relative">
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-sm text-muted mb-6 flex items-center gap-2"
+          className="mb-6"
         >
-          <span className="inline-block w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-          Available for opportunities
-        </motion.p>
+          <Badge variant="glow" size="lg" className="gap-2">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400" />
+            </span>
+            Available for opportunities
+          </Badge>
+        </motion.div>
 
         <h1 className="font-display text-5xl sm:text-7xl md:text-8xl font-semibold leading-[0.95] tracking-tight">
           <span className="block overflow-hidden">
@@ -80,39 +98,37 @@ export default function Hero() {
           transition={{ delay: 0.9, duration: 0.7 }}
           className="mt-10 flex flex-wrap items-center gap-4"
         >
-          <a
-            href="#projects"
-            className="group inline-flex items-center gap-2 rounded-full bg-white text-bg px-5 py-2.5 text-sm font-medium hover:bg-accent hover:text-white transition-colors"
-          >
-            View my work
-            <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
-          </a>
-          <div className="flex items-center gap-3 text-muted">
-            <a
-              href="https://github.com/vjat5452"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="GitHub"
-              className="p-2 rounded-full border border-border hover:border-accent hover:text-white transition-colors"
-            >
-              <Github className="w-4 h-4" />
+          <Button asChild>
+            <a href="#projects">
+              View my work
+              <ArrowDown className="w-4 h-4 transition-transform group-hover:translate-y-0.5" />
             </a>
-            <a
-              href="https://www.linkedin.com/in/vijay-saharan-16015a264"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="LinkedIn"
-              className="p-2 rounded-full border border-border hover:border-accent hover:text-white transition-colors"
-            >
-              <Linkedin className="w-4 h-4" />
+          </Button>
+          <Button asChild variant="outline">
+            <a href="#contact">
+              <Sparkles className="w-4 h-4" />
+              Let&apos;s collaborate
             </a>
-            <a
-              href="mailto:vijaykumarsaharan22@gmail.com"
-              aria-label="Email"
-              className="p-2 rounded-full border border-border hover:border-accent hover:text-white transition-colors"
-            >
-              <Mail className="w-4 h-4" />
-            </a>
+          </Button>
+
+          <div className="flex items-center gap-3">
+            {socials.map(({ href, label, Icon }) => (
+              <Tooltip key={label}>
+                <TooltipTrigger asChild>
+                  <Button
+                    asChild
+                    variant="icon"
+                    size="icon"
+                    aria-label={label}
+                  >
+                    <a href={href} target="_blank" rel="noreferrer">
+                      <Icon className="w-4 h-4" />
+                    </a>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>{label}</TooltipContent>
+              </Tooltip>
+            ))}
           </div>
         </motion.div>
       </div>
