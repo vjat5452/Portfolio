@@ -1,7 +1,7 @@
 "use client";
 
 import FadeIn from "./FadeIn";
-import { ArrowUpRight, Star } from "lucide-react";
+import { ArrowUpRight, Star, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
 import { Badge } from "@/components/ui/badge";
@@ -21,6 +21,8 @@ const projects = [
     stack: ["Next.js 16", "React 19", "GSAP", "Three.js", "Tailwind"],
     highlights: ["20+ pages", "R3F scenes", "98 Lighthouse"],
     featured: true,
+    liveUrl: "https://sparrowi.com",
+    liveLabel: "sparrowi.com",
   },
   {
     title: "Sparrowi AI Experience Centre",
@@ -40,6 +42,8 @@ const projects = [
       "Full RAG pipeline — Claude API, Qdrant vectors, semantic chunking, reranker, PDF parsing, live web-scrape ingestion, lead capture, session mgmt, SQL analytics, and a React control plane.",
     stack: ["Python", "Claude API", "Qdrant", "React", "SQL"],
     highlights: ["Semantic rerank", "PDF + web ingest", "Lead capture"],
+    liveUrl: "https://sparrowi.com",
+    liveLabel: "sparrowi.com",
   },
   {
     title: "RealDocs",
@@ -109,6 +113,22 @@ export default function Projects() {
                                 Featured
                               </Badge>
                             )}
+                            {p.liveUrl && (
+                              <a
+                                href={p.liveUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                className="group/live inline-flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent/10 px-2 py-0.5 text-[10px] font-medium text-accent transition-all hover:border-accent hover:bg-accent/20 hover:text-white"
+                              >
+                                <span className="relative flex h-1.5 w-1.5">
+                                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+                                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-green-400" />
+                                </span>
+                                Live · {p.liveLabel}
+                                <ExternalLink className="h-2.5 w-2.5 transition-transform group-hover/live:-translate-y-0.5 group-hover/live:translate-x-0.5" />
+                              </a>
+                            )}
                           </div>
                           <h3 className="font-display text-xl sm:text-2xl font-medium">
                             {p.title}
@@ -153,6 +173,17 @@ export default function Projects() {
                         </li>
                       ))}
                     </ul>
+                    {p.liveUrl && (
+                      <a
+                        href={p.liveUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="mt-1 inline-flex items-center gap-1.5 text-xs text-accent transition-colors hover:text-white"
+                      >
+                        Visit {p.liveLabel}
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
+                    )}
                   </div>
                 </HoverCardContent>
               </HoverCard>
