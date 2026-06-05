@@ -15,6 +15,16 @@ const roles = [
     ],
   },
   {
+    company: "Freelance",
+    role: "Freelance Developer",
+    period: "2024 — Present",
+    location: "Remote",
+    stack: ["Next.js", "React", "Node.js", "Python"],
+    bullets: [
+      "Take on freelance projects on the side — building small web apps, landing pages, and AI-powered tools for independent clients.",
+    ],
+  },
+  {
     company: "Swafinix Technologies",
     role: "Full-Stack Developer Intern",
     period: "Nov 2025 — Feb 2026",
